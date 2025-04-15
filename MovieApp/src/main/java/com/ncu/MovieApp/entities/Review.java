@@ -1,34 +1,28 @@
 package com.ncu.MovieApp.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "review")
 public class Review {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer reviewId;
+    private int id;
 
-    private String comment;
+    private String content;
     private int rating;
 
     @ManyToOne
     @JoinColumn(name = "movie_id")
+    @JsonBackReference
     private Movie movie;
 
-    public Review() {}
+    // Getters and Setters
+    public int getId() { return id; }
+    public void setId(int id) { this.id = id; }
 
-    public Review(String comment, int rating, Movie movie) {
-        this.comment = comment;
-        this.rating = rating;
-        this.movie = movie;
-    }
-
-    public Integer getReviewId() { return reviewId; }
-    public void setReviewId(Integer reviewId) { this.reviewId = reviewId; }
-
-    public String getComment() { return comment; }
-    public void setComment(String comment) { this.comment = comment; }
+    public String getContent() { return content; }
+    public void setContent(String content) { this.content = content; }
 
     public int getRating() { return rating; }
     public void setRating(int rating) { this.rating = rating; }
@@ -36,4 +30,3 @@ public class Review {
     public Movie getMovie() { return movie; }
     public void setMovie(Movie movie) { this.movie = movie; }
 }
-

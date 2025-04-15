@@ -1,49 +1,32 @@
 package com.ncu.MovieApp.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
-import java.util.List;
 
 @Entity
-@Table(name = "bookings")
 public class Booking {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int bookingId;
+    private int id;
 
     private String customerName;
-    private String movieName;
-    private int quantity;
+    private int numberOfSeats;
 
-    @OneToOne(mappedBy = "booking", cascade = CascadeType.ALL)
-    private Invoice invoice;
+    @ManyToOne
+    @JoinColumn(name = "movie_id")
+    @JsonBackReference
+    private Movie movie;
 
-    @OneToMany
-    @JoinColumn(name = "booking_id")
-    private List<Movie> movies;
-
-    public Booking() {}
-
-    public Booking(String customerName, String movieName, int quantity) {
-        this.customerName = customerName;
-        this.movieName = movieName;
-        this.quantity = quantity;
-    }
-
-    public int getBookingId() { return bookingId; }
-    public void setBookingId(int bookingId) { this.bookingId = bookingId; }
+    // Getters and Setters
+    public int getId() { return id; }
+    public void setId(int id) { this.id = id; }
 
     public String getCustomerName() { return customerName; }
     public void setCustomerName(String customerName) { this.customerName = customerName; }
 
-    public String getMovieName() { return movieName; }
-    public void setMovieName(String movieName) { this.movieName = movieName; }
+    public int getNumberOfSeats() { return numberOfSeats; }
+    public void setNumberOfSeats(int numberOfSeats) { this.numberOfSeats = numberOfSeats; }
 
-    public int getQuantity() { return quantity; }
-    public void setQuantity(int quantity) { this.quantity = quantity; }
-
-    public Invoice getInvoice() { return invoice; }
-    public void setInvoice(Invoice invoice) { this.invoice = invoice; }
-
-    public List<Movie> getMovies() { return movies; }
-    public void setMovies(List<Movie> movies) { this.movies = movies; }
+    public Movie getMovie() { return movie; }
+    public void setMovie(Movie movie) { this.movie = movie; }
 }

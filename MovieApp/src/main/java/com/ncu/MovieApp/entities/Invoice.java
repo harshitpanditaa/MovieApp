@@ -3,39 +3,27 @@ package com.ncu.MovieApp.entities;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "invoices")
 public class Invoice {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int invoiceId;
+    private int id;
 
     private String customerName;
-    private double amount;
-    private String movieName;
+    private double totalAmount;
 
     @OneToOne
     @JoinColumn(name = "booking_id")
     private Booking booking;
 
-    public Invoice() {}
-
-    public Invoice(String customerName, double amount, String movieName) {
-        this.customerName = customerName;
-        this.amount = amount;
-        this.movieName = movieName;
-    }
-
-    public int getInvoiceId() { return invoiceId; }
-    public void setInvoiceId(int invoiceId) { this.invoiceId = invoiceId; }
+    // Getters and Setters
+    public int getId() { return id; }
+    public void setId(int id) { this.id = id; }
 
     public String getCustomerName() { return customerName; }
     public void setCustomerName(String customerName) { this.customerName = customerName; }
 
-    public double getAmount() { return amount; }
-    public void setAmount(double amount) { this.amount = amount; }
-
-    public String getMovieName() { return movieName; }
-    public void setMovieName(String movieName) { this.movieName = movieName; }
+    public double getTotalAmount() { return totalAmount; }
+    public void setTotalAmount(double totalAmount) { this.totalAmount = totalAmount; }
 
     public Booking getBooking() { return booking; }
     public void setBooking(Booking booking) { this.booking = booking; }

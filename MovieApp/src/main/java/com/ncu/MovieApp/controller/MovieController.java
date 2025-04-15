@@ -15,18 +15,18 @@ public class MovieController {
     private MovieService movieService;
 
     @PostMapping
-    public int saveMovie(@RequestBody Movie movie) {
+    public Movie saveMovie(@RequestBody Movie movie) {
         return movieService.saveMovie(movie);
     }
 
     @PutMapping
-    public int updateMovie(@RequestBody Movie movie) {
+    public Movie updateMovie(@RequestBody Movie movie) {
         return movieService.updateMovie(movie);
     }
 
     @DeleteMapping("/{id}")
-    public int deleteMovie(@PathVariable int id) {
-        return movieService.deleteMovieById(id);
+    public void deleteMovie(@PathVariable int id) {
+        movieService.deleteMovieById(id);
     }
 
     @GetMapping("/{id}")

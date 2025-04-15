@@ -1,15 +1,9 @@
 package com.ncu.MovieApp.repository;
 
 import com.ncu.MovieApp.entities.Movie;
-import java.util.List;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-public interface MovieRepository {
-    int save(Movie movie);
-    int update(Movie movie);
-    int deleteById(int movieId);
-    Movie findById(int movieId);
-    List<Movie> findAll();
-    int[] batchSaveMovies(List<Movie> movies);
-    int[] updateMovies(List<Movie> movies);
-    int[] deleteMovies(List<Integer> movieIds);
+@Repository
+public interface MovieRepository extends JpaRepository<Movie, Integer> {
 }

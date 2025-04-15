@@ -1,48 +1,51 @@
 package com.ncu.MovieApp.entities;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name = "movies")
 public class Movie {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int movieId;
+    private int id;
 
-    private String name;
-    private String genre;
+    private String title;
+    private String description;
+    private double rating;
 
-    @OneToMany(mappedBy = "movie", cascade = CascadeType.ALL)
+    @ManyToOne
+    @JoinColumn(name = "category_id")
+    @JsonBackReference
+    private Category category;
+
+    @OneToMany(mappedBy = "movie", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
     private List<Review> reviews;
 
-    @ManyToMany
-    @JoinTable(
-            name = "movie_category",
-            joinColumns = @JoinColumn(name = "movie_id"),
-            inverseJoinColumns = @JoinColumn(name = "category_id")
-    )
-    private List<Category> categories;
+    @OneToMany(mappedBy = "movie", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Booking> bookings;
 
-    public Movie() {}
+    // Getters and Setters
+    public int getId() { return id; }
+    public void setId(int id) { this.id = id; }
 
-    public Movie(String name, String genre) {
-        this.name = name;
-        this.genre = genre;
-    }
+    public String getTitle() { return title; }
+    public void setTitle(String title) { this.title = title; }
 
-    public int getMovieId() { return movieId; }
-    public void setMovieId(int movieId) { this.movieId = movieId; }
+    public String getDescription() { return description; }
+    public void setDescription(String description) { this.description = description; }
 
-    public String getName() { return name; }
-    public void setName(String name) { this.name = name; }
+    public double getRating() { return rating; }
+    public void setRating(double rating) { this.rating = rating; }
 
-    public String getGenre() { return genre; }
-    public void setGenre(String genre) { this.genre = genre; }
+    public Category getCategory() { return category; }
+    public void setCategory(Category category) { this.category = category; }
 
     public List<Review> getReviews() { return reviews; }
     public void setReviews(List<Review> reviews) { this.reviews = reviews; }
 
-    public List<Category> getCategories() { return categories; }
-    public void setCategories(List<Category> categories) { this.categories = categories; }
+    public List<Booking> getBookings() { return bookings; }
+    public void setBookings(List<Booking> bookings) { this.bookings = bookings; }
 }
